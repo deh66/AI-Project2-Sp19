@@ -33,7 +33,6 @@ public class NBayes {
 	 * Naive Bayes Classifier used by NBayes and Menu classes.
 	 */
 	protected static NaiveBayes nbClassifier = new NaiveBayes();
-	// nbClassifier
 	
 	/**
 	 * Working data set read in from .arff file
@@ -73,6 +72,8 @@ public class NBayes {
 			System.err.println(e);
 		}
 		
+		System.out.println("Decision Tree Created.");
+		
 		return;
 	}
 	
@@ -80,38 +81,45 @@ public class NBayes {
 	 * Load a previously saved classifier from file, as well as it's data file
 	 * @param fName		name of the file the classifier is saved in
 	 * @param dfName	name of the data file the classifier was created from (for attribute labels)
+	 * @return {@code true} if classifier loaded successfully; {@code false} if not
 	 */
-	public static void loadNBClassifierCustom(String fName, String dfName)
+	public static boolean loadNBClassifierCustom(String fName, String dfName)
 	{
 		// Check that file exists
 		if( !Files.exists( Paths.get(fName) ) )
 		{
 			System.out.println("Error: The classifier file (" + fName + ") could not be found.");
-			return;
+			return false;
 		}
 		if( !Files.exists( Paths.get(dfName) ) )
 		{
 			System.out.println("Error: The data file (" + dfName + ") could not be found.");
-			return;
+			return false;
 		}
 		
 		try
 		{
 			// Read in the tree
-			nbClassifier = (NaiveBayes) weka.core.SerializationHelper.read(fName);
+			nbClassifier = (NaiveBayes) weka.core.SerializationHelper.read(fName);				
 			
 			// Get the data file that the classifier came from
 			DataSource source = new DataSource(dfName);
 			data = source.getDataSet();
+			
+			// Exclude the class attribute
+			if (data.classIndex() == -1)
+				data.setClassIndex(data.numAttributes() - 1); 
 		}
 		catch (Exception e)
 		{
 			System.out.println("An Exception Occured. Classifier creation aborted.");
 			System.err.println(e);
-			return;
+			return false;
 		}
-		return;
+		return true;
 	}
+	
+	
 	
 	/**
 	 * Creates a new instance (case) from user input. Prompts user on valid inputs for each attribute

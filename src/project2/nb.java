@@ -121,9 +121,7 @@ public class nb extends NBayes{
 		String fName = sc.next();
 		
 		// Create the classifier
-		loadNBClassifierARFF(fName);
-		
-		System.out.println("Decision Tree Created.");
+		loadNBClassifierARFF(fName);		
 		
 		return;
 	}
@@ -201,7 +199,8 @@ public class nb extends NBayes{
 		String dfName = sc.next();
 		
 		// Load the classifier from files
-		loadNBClassifierCustom(fName, dfName);
+		if( !loadNBClassifierCustom(fName, dfName) )
+			return;
 		
 		menuOption3(sc);
 		return;
