@@ -4,7 +4,7 @@
  * @author Daniel Hollo
  * @date 4/14/2019
  * 
- * This file contains the implementation of all Naive Bayes based operations.
+ * Contains the implementation of all Naive Bayes based operations.
  */
 
 package project2;
@@ -24,6 +24,10 @@ import weka.core.Instances;
 import weka.core.UnassignedDatasetException;
 import weka.core.converters.ConverterUtils.DataSource;
 
+/**
+ * Contains the implementation of all Naive Bayes based operations.
+ * @author Daniel Hollo
+ */
 public class NBayes {
 	/**
 	 * Naive Bayes Classifier used by NBayes and Menu classes.
@@ -113,10 +117,8 @@ public class NBayes {
 	 * Creates a new instance (case) from user input. Prompts user on valid inputs for each attribute
 	 * and asks if this case should modify the classifier.
 	 * @param sc	{@code Scanner} object to read in user input
-	 * @param data	(@code Instances} object that contains the working data set
 	 * @throws IllegalArgumentException	If an unexpected value is entered for an attribute
 	 * @throws UnassignedDatasetException	If the dataset is not initalized
-	 * @throws Exception	When the machine catches fire
 	 */
 	public static void createInstanceInteractive(Scanner sc)
 	{
@@ -296,67 +298,5 @@ public class NBayes {
 			System.out.println("    " + a.value((int) data.value(a)));
 		}
 	}
-	
-	
-	
-	
-	/**
-	 * Old Test function
-	 * @param data	(@code Instances} object that contains the working data set
-	 */
-	public static void createInstance(Instances data)
-	{
-		//Attribute newAttr;
-		Instance newInstance = data.firstInstance();
-		int iter = 0;		
-		
-		showInstanceValues(newInstance);
-		//newInstance
-		
-		Enumeration<Attribute> atts = data.enumerateAttributes();
-		
-		while(atts.hasMoreElements())
-		{
-			Attribute a = atts.nextElement();
-			newInstance.setValue(iter, a.value(0));
-			iter++;
-		}
-		
-		showInstanceValues(newInstance);
-		
-		System.out.println("\n");
-		
-		try
-		{
-			double[] distProb = nbClassifier.distributionForInstance(newInstance);
-			
-			System.out.println("Distribution Probabilities: ");
-			
-			// Print all class membership probabilities
-			for (double i : distProb)
-			{
-				System.out.println(i + ", ");
-			}
-			
-			//public void updateClassifier(Instance instance)
-			
-			// Ask user if they want to update the classifier with this case
-			//System.out.println("Do you want to update the classifier with this case? (y/n):");
-			
-			// Save original classifier
-			weka.core.SerializationHelper.write("originalClassifier", nbClassifier);
-			
-			// update classifier
-			nbClassifier.updateClassifier(newInstance);
-			
-			// save updated classifier
-			weka.core.SerializationHelper.write("updatedClassifier", nbClassifier);
-		}
-		catch (Exception e)
-		{
-			System.out.println("An Exception Occured. Tree creation aborted.");
-			System.err.println(e);
-		}
-		//System.out.println();
-	}
+
 }

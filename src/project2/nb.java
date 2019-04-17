@@ -1,10 +1,10 @@
 /**
- * @file Menu.java
+ * @file nb.java
  * 
  * @author Daniel Hollo
- * @date 3/11/2019
+ * @date 4/14/2019
  * 
- * This file contains the implementation of the driver function and the menu interface.
+ * Contains the implementation of the driver function and the menu interface.
  */
 
 package project2;
@@ -16,16 +16,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * This file contains the implementation of the driver function and the menu interface.
+ * Driver class that contains the project's implementation
  * 
- * @see nbClassifier
+ * @see NBayes
  */
-public class Menu extends NBayes{
+public class nb extends NBayes{
 	
 	/**
 	 * The main function for this project
-	 * @param args
-	 * @throws Exception
+	 * @param args command line arguments
+	 * @throws Exception	When bad stuff happens
 	 */
 	public static void main(String[] args) throws Exception
 	{
